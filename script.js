@@ -10,14 +10,14 @@ let buttonContainer=document.getElementById('button-container')
 let textBoxText =document.getElementById('input')
 let button = document.getElementById('button')
 let searchFinished = false;
-
+let photoCount  =5;
 let photosArray =[];
 
 
 // Setup Unsplash.com API key and setup
 const apiAccess='S-3zHLFjI0Y2ScHe1Wr0se37Ts9-yIyjYQkiAlAvX14';
 const apiSecret = 'jLiLHs-KTevVYUOh2cQAddsy5-qiVPPJLUU77evmZP4';
-const photoCount = 20;
+lethttps://gastontk.github.io/infiniteScroll/ photoCount = 5;
 let apiUrl ='';
 
 // Set attributes of elements
@@ -88,6 +88,7 @@ async function getPhotosFromUnsplash(searchTerm){
     
     
         }
+        photoCount =10;
     }
     
 
@@ -115,7 +116,7 @@ window.addEventListener('scroll', async ()=>{
    
    
     console.log('scroll', (window.innerHeight+ window.scrollY), (document.body.offsetHeight));
-    if(window.innerHeight + window.scrollY >= (document.body.offsetHeight - 500) && count == 0){
+    if(window.innerHeight + window.scrollY >= (document.body.offsetHeight - 1000) && count == 0){
         count++
         console.log('triggered get new photos')
         // await getPhotosFromUnsplash();

@@ -1,5 +1,6 @@
 console.log('infinite scroll');
 
+const title= document.getElementById('title')
 
 const imageContainer= document.getElementById('image-container')
 const loader= document.getElementById('loader')
@@ -49,7 +50,11 @@ function displayPhotos(){
         item.appendChild(image);
         imageContainer.appendChild(item);
         
+        
     })
+    title.classList.remove('blur')
+    imageContainer.classList.remove('blur')
+    loader.hidden =true;
     photosArray =[];
 }
 
@@ -70,6 +75,9 @@ async function getPhotosFromUnsplash(searchTerm){
                 // warn.setAttribute('value', 'testing');
                 // warn.setAttribute('width', '100%');
                 imageContainer.appendChild(warn)
+                loader.hidden =true;
+                title.classList.remove('blur')
+                imageContainer.classList.remove('blur')
                 
     
             }else{
@@ -93,18 +101,6 @@ async function getPhotosFromUnsplash(searchTerm){
 
 }
 
-// async function debounce(func, interval) {
-//     var lastCall = -1;
-//     return function() {
-//         console.log('in debounce');
-//         clearTimeout(lastCall);
-//         var args = arguments;
-//         var self = this;
-//         lastCall = setTimeout(function() {
-//             func.apply(self, args);
-//         }, interval);
-//     };
-// }
 
 
 // Check if scroll is near end of page. If so add more photos
@@ -116,11 +112,12 @@ window.addEventListener('scroll', async ()=>{
    
     console.log('scroll window.innerheight: ', window.innerHeight, 'window.scrollY ',window.scrollY, 'document.body.offsetHeight:',document.body.offsetHeight, 'document.body.offsetHeight: ',document.body.offsetHeight, 'image-container height:', imageContainer.scrollHeight);
     if((window.innerHeight + window.scrollY) >= (imageContainer.scrollHeight) - 1000 && count == 0){
+        
         count++
         console.log('triggered get new photos')
-        // await getPhotosFromUnsplash();
-        //  let x = await debounce(getPhotosFromUnsplash, 1000);
-        //   x();
+        loader.hidden =false;
+        title.classList.add('blur')
+        imageContainer.classList.add('blur')
         getPhotosFromUnsplash()
 
         setTimeout(()=>{
@@ -138,6 +135,9 @@ button.addEventListener('click',()=>{
     searchText.hidden=true;
     searchFinished=true;
     apiUrl=`https://api.unsplash.com/photos/random/?query=${searchTerm}&client_id=${apiAccess}&count=${photoCount}`
+    loader.hidden =false
+    title.classList.add('blur')
+    imageContainer.classList.add('blur')
     getPhotosFromUnsplash()
     
 

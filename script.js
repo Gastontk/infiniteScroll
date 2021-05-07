@@ -60,6 +60,9 @@ function displayPhotos(){
 
 // Get photos from Unsplash.com
 async function getPhotosFromUnsplash(searchTerm){
+    loader.hidden =false
+    title.classList.add('blur')
+    imageContainer.classList.add('blur')
     photosArray=[];
     if(searchFinished){
         try {
@@ -74,30 +77,34 @@ async function getPhotosFromUnsplash(searchTerm){
                 warn.setAttribute('id', 'error');
                 // warn.setAttribute('value', 'testing');
                 // warn.setAttribute('width', '100%');
-                imageContainer.appendChild(warn)
-                loader.hidden =true;
-                title.classList.remove('blur')
-                imageContainer.classList.remove('blur')
+
                 
     
-            }else{
+            } else if(response.status == 404){
+                // change title to reflect no photo found
+                title.textContent =`No photos found matching the description \"${searchTerm}\"` 
+            }
+            else{
                         photosArray= await response.json();
              console.log('data from unsplash ', photosArray);
              displayPhotos();
+
              
             }
     
     
             
         } catch(err){
-    
                 console.log('error getting json for photos ', err)
     
     
         }
-        photoCount =10;
+
     }
-    
+        loader.hidden =true;
+        title.classList.remove('blur')
+        imageContainer.classList.remove('blur')
+        photoCount =10;
 
 }
 
@@ -118,7 +125,7 @@ window.addEventListener('scroll', async ()=>{
         loader.hidden =false;
         title.classList.add('blur')
         imageContainer.classList.add('blur')
-        getPhotosFromUnsplash()
+        await getPhotosFromUnsplash()
 
         setTimeout(()=>{
             count =0;
@@ -137,10 +144,8 @@ button.addEventListener('click',()=>{
     title.innerText=` ${searchTerm}`;
     apiUrl=`https://api.unsplash.com/photos/random/?query=${searchTerm}&client_id=${apiAccess}&count=${photoCount}`
     
-    loader.hidden =false
-    title.classList.add('blur')
-    imageContainer.classList.add('blur')
-    getPhotosFromUnsplash()
+
+    getPhotosFromUnsplash(searchTerm)
     
 
 })

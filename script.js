@@ -134,7 +134,9 @@ button.addEventListener('click',()=>{
     buttonContainer.hidden = true;
     searchText.hidden=true;
     searchFinished=true;
+    title.innerText=` ${searchTerm}`;
     apiUrl=`https://api.unsplash.com/photos/random/?query=${searchTerm}&client_id=${apiAccess}&count=${photoCount}`
+    
     loader.hidden =false
     title.classList.add('blur')
     imageContainer.classList.add('blur')

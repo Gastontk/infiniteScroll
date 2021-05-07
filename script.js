@@ -17,7 +17,6 @@ let photosArray =[];
 // Setup Unsplash.com API key and setup
 const apiAccess='S-3zHLFjI0Y2ScHe1Wr0se37Ts9-yIyjYQkiAlAvX14';
 const apiSecret = 'jLiLHs-KTevVYUOh2cQAddsy5-qiVPPJLUU77evmZP4';
-lethttps://gastontk.github.io/infiniteScroll/ photoCount = 5;
 let apiUrl ='';
 
 // Set attributes of elements
@@ -115,8 +114,8 @@ window.addEventListener('scroll', async ()=>{
     console.log('count for triggering getPhotosFromUnsplash', count)
    
    
-    console.log('scroll', (window.innerHeight+ window.scrollY), (document.body.offsetHeight));
-    if(window.innerHeight + window.scrollY >= (document.body.offsetHeight - 1000) && count == 0){
+    console.log('scroll window.innerheight: ', window.innerHeight, 'window.scrollY ',window.scrollY, 'document.body.offsetHeight:',document.body.offsetHeight, 'document.body.offsetHeight: ',document.body.offsetHeight, 'image-container height:', imageContainer.scrollHeight);
+    if((window.innerHeight + window.scrollY) >= (imageContainer.scrollHeight) - 1000 && count == 0){
         count++
         console.log('triggered get new photos')
         // await getPhotosFromUnsplash();
@@ -126,7 +125,7 @@ window.addEventListener('scroll', async ()=>{
 
         setTimeout(()=>{
             count =0;
-        },500)
+        },1000)
         
     }
 
